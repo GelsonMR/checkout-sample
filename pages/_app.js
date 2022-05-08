@@ -17,7 +17,7 @@ const theme = {
     secondary: '#F5850B',
     black: '#151516',
     gray1: '#F4F3F6',
-    gray1: '#E1DEE8',
+    gray2: '#E1DEE8',
     gray3: '#C9C5D4',
     gray4: '#666173',
   },
