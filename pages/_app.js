@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const theme = {
+  fontFamily: 'DM Sans, sans-serif',
   colors: {
     primary: '#191847',
     secondary: '#F5850B',
