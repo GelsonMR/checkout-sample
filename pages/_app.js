@@ -12,7 +12,13 @@ const GlobalStyle = createGlobalStyle`
 
 const theme = {
   colors: {
-    primary: '#0070f3',
+    primary: '#191847',
+    secondary: '#F5850B',
+    black: '#151516',
+    gray1: '#F4F3F6',
+    gray1: '#E1DEE8',
+    gray3: '#C9C5D4',
+    gray4: '#666173',
   },
 }
 
