@@ -6,6 +6,7 @@ export default function Payment() {
     <Container>
       <Heading>Estamos quase lá!</Heading>
       <Hint>Insira seus dados de pagamento abaixo:</Hint>
+      <AcceptedCreditCards />
     </Container>
   )
 }
