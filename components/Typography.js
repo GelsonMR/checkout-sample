@@ -19,5 +19,3 @@ export const Body2 = styled(Body)`
 export const Footnote = styled(Body)`
   font-size: 12px;
 `
-
-export default H4
