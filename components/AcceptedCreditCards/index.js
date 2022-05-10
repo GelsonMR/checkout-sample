@@ -8,7 +8,7 @@ export default function AcceptedCreditCards() {
     <Container>
       <CardsList>
         {cardsList.map(card => (
-          <CardWrapper>
+          <CardWrapper key={card.name}>
             <Image src={card.logo} alt={card.name} />
           </CardWrapper>
         ))}
