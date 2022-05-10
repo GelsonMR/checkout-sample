@@ -1,4 +1,5 @@
 export { default as AcceptedCreditCards } from './AcceptedCreditCards'
+export { default as Button } from './Button'
 export { default as Header } from './Header'
 export { default as Page } from './Page'
 export { default as Payment } from './Payment'
