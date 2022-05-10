@@ -15,6 +15,7 @@ const theme = {
   colors: {
     primary: '#191847',
     secondary: '#F5850B',
+    error: '#d32f2f',
     black: '#151516',
     gray1: '#F4F3F6',
     gray2: '#E1DEE8',
