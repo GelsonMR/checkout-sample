@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import InputMask from 'react-input-mask'
+import { useRouter } from 'next/router'
 
 import { useOffers } from '../../context/OffersContext'
+import { useSubscription } from '../../context/SubscriptionContext'
 import AcceptedCreditCards from '../AcceptedCreditCards'
 import FormField from '../FormField'
 import { Container, Form, Heading, Hint } from './styled'
@@ -11,12 +13,29 @@ import { schema } from './consts'
 import Button from '../Button'
 
 export default function Payment() {
+  const router = useRouter()
   const [installmentsOptions, setInstallmentsOptions] = useState([])
   const { selectedOffer } = useOffers()
+  const { isLoading, subscribe } = useSubscription()
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
-  const onSubmit = data => console.log(data)
+  const onSubmit = async data => {
+    const body = {
+      ...data,
+      couponCode: data.couponCode || null,
+      installments: data.installments || 1,
+      gateway: selectedOffer.gateway,
+      offerId: selectedOffer.id,
+      userId: 1
+    }
+    const res = await subscribe(body)
+    if (res.error) {
+      alert('Houve um erro ao processar sua assinatura, tente novamente.')
+      return
+    }
+    router.push('/success')
+  }
 
   useEffect(() => {
     if (!selectedOffer) {
@@ -49,7 +68,7 @@ export default function Payment() {
       <Heading>Estamos quase lá!</Heading>
       <Hint>Insira seus dados de pagamento abaixo:</Hint>
       <AcceptedCreditCards />
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form disabled={isLoading} onSubmit={handleSubmit(onSubmit)}>
         <InputMask mask="9999 9999 9999 9999" maskChar="" {...register('creditCardNumber')}>
           {(inputProps) => (
             <FormField
