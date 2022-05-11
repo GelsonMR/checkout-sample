@@ -11,7 +11,7 @@ export const Container = styled.header`
   background-color: #FFF;
   z-index: 1;
 
-  @media ${devices.mediaQueries.mobileL} {
+  @media ${devices.mediaQueries.tablet} {
     height: 92px;
   }
 `
@@ -29,7 +29,7 @@ export const IconButton = styled.a`
   bottom: 0;
   margin: auto;
 
-  @media ${devices.mediaQueries.mobileL} {
+  @media ${devices.mediaQueries.tablet} {
     left: 52px;
   }
 `
