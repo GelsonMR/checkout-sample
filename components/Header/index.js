@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Container, IconButton } from './styled'
+import { Container, IconButton, Logo } from './styled'
 import logo from '../../public/logo.svg'
 import arrowLeft from '../../public/icons/arrow-left.svg'
 
-export default function Header() {
+export default function Header({ loading }) {
   return (
     <Container>
       <Link href={'/'}>
@@ -12,7 +12,9 @@ export default function Header() {
           <Image src={arrowLeft} alt="Back" />
         </IconButton>
       </Link>
-      <Image src={logo} alt="Whitebook logo" />
+      <Logo $loading={loading}>
+        <Image src={logo} alt="Whitebook logo" />
+      </Logo>
     </Container>
   )
 }

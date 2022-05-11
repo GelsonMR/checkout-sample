@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 export const Container = styled.header`
   position: sticky;
@@ -20,4 +20,27 @@ export const IconButton = styled.a`
   left: 52px;
   bottom: 0;
   margin: auto;
+`
+
+const blinking = keyframes`
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+const animation = css`
+  animation: ${blinking} 1s infinite normal ease-in;
+`
+
+export const Logo = styled.div`
+  width: 42px;
+  height: 29px;
+  ${props => props.$loading ? animation : ''};
+
 `
