@@ -1,15 +1,17 @@
 import { Header, Page, Payment, Offers } from '../components'
 import { useOffers } from '../context/OffersContext'
+import { useSubscription } from '../context/SubscriptionContext'
 
 export default function Home() {
-  const { isLoading, error } = useOffers()
+  const offers = useOffers()
+  const subscription = useSubscription()
 
   return (
     <>
-      <Header loading={isLoading} />
+      <Header loading={offers.isLoading || subscription.isLoading} />
       <Page>
-        {error && 'Erro ao carregar planos'}
-        {!isLoading && (
+        {offers.error && 'Erro ao carregar planos'}
+        {(!offers.isLoading && !offers.error) && (
           <>
             <Payment />
             <Offers />
