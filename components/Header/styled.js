@@ -2,10 +2,13 @@ import styled, { css, keyframes } from 'styled-components'
 
 export const Container = styled.header`
   position: sticky;
+  top: 0;
   height: 92px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #FFF;
+  z-index: 1;
 `
 
 export const IconButton = styled.a`
