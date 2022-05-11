@@ -13,7 +13,10 @@ export function SubscriptionContextProvider({ children }) {
     setError(false)
     try {
       const res = await subscribe(params)
-      setSubscription(res.data)
+      setSubscription({
+        ...res.data,
+        ...params
+      })
       setIsLoading(false)
       return res
     } catch (e) {
