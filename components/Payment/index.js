@@ -8,9 +8,10 @@ import { useOffers } from '../../context/OffersContext'
 import { useSubscription } from '../../context/SubscriptionContext'
 import AcceptedCreditCards from '../AcceptedCreditCards'
 import FormField from '../FormField'
-import { Container, Form, Heading, Hint } from './styled'
+import { Form, Heading, Hint } from './styled'
 import { schema } from './consts'
 import Button from '../Button'
+import Section from '../Section'
 
 export default function Payment() {
   const router = useRouter()
@@ -20,7 +21,7 @@ export default function Payment() {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
-  const onSubmit = async data => {
+  const onSubmit = async ({ showInstallments, ...data }) => {
     const body = {
       ...data,
       couponCode: data.couponCode || null,
@@ -64,7 +65,7 @@ export default function Payment() {
   }, [selectedOffer, setValue])
 
   return (
-    <Container>
+    <Section>
       <Heading>Estamos quase lá!</Heading>
       <Hint>Insira seus dados de pagamento abaixo:</Hint>
       <AcceptedCreditCards />
@@ -143,6 +144,6 @@ export default function Payment() {
         }
         <Button>Finalizar pagamento</Button>
       </Form>
-    </Container>
+    </Section>
   )
 }
