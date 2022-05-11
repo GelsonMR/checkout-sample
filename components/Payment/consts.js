@@ -42,23 +42,11 @@ export const schema = yup.object().shape({
     .required()
     .test('cpf', 'Use um CPF válido', value => testCPF(value.replace(/[\.,\-]+/g, ''))),
   couponCode: yup.string()
-    .min(2)
     .max(16),
+  showInstallments: yup.boolean(),
   installments: yup.string()
-    .required('Selecione um valor')
+    .when('showInstallments', {
+      is: true,
+      then: yup.string().required('Selecione um valor'),
+    }),
 }).required()
-
-export const installmentsOptions = [
-  { label: 'Selecione', value: '' },
-  { label: '2 parcelas', value: '2' },
-  { label: '3 parcelas', value: '3' },
-  { label: '4 parcelas', value: '4' },
-  { label: '5 parcelas', value: '5' },
-  { label: '6 parcelas', value: '6' },
-  { label: '7 parcelas', value: '7' },
-  { label: '8 parcelas', value: '8' },
-  { label: '9 parcelas', value: '9' },
-  { label: '10 parcelas', value: '10' },
-  { label: '11 parcelas', value: '11' },
-  { label: '12 parcelas', value: '12' },
-]

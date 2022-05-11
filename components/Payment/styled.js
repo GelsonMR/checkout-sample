@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import * as Typography from '../Typography'
 
-export const Container = styled.header`
+export const Container = styled.div`
   width: 330px;
 `
 

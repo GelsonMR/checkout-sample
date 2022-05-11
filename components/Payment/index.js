@@ -1,19 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import InputMask from 'react-input-mask'
 
+import { useOffers } from '../../context/OffersContext'
 import AcceptedCreditCards from '../AcceptedCreditCards'
 import FormField from '../FormField'
 import { Container, Form, Heading, Hint } from './styled'
-import { installmentsOptions, schema } from './consts'
+import { schema } from './consts'
 import Button from '../Button'
 
 export default function Payment() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const [installmentsOptions, setInstallmentsOptions] = useState([])
+  const { selectedOffer } = useOffers()
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
   const onSubmit = data => console.log(data)
+
+  useEffect(() => {
+    if (!selectedOffer) {
+      return
+    }
+    if (!selectedOffer.acceptsCoupon) {
+      setValue('couponCode', '')
+    }
+    setValue('installments', '')
+    setValue('showInstallments', selectedOffer.splittable)
+    if (!selectedOffer.splittable) {
+      setInstallmentsOptions([])
+      return
+    }
+    const newInstallmentsOptions = [
+      { label: 'Selecione', value: '' },
+      ...Array.from({ length: selectedOffer.installments - 1 }).map((_, index) => {
+        const installments = `${index + 2}`
+        return {
+          label: `${installments} parcelas`,
+          value: installments,
+        }
+      })
+    ]
+    setInstallmentsOptions(newInstallmentsOptions)
+  }, [selectedOffer, setValue])
 
   return (
     <Container>
@@ -73,18 +102,26 @@ export default function Payment() {
             />
           )}
         </InputMask>
-        <FormField
-          label="Cupom"
-          placeholder="Insira aqui"
-          error={errors.couponCode?.message}
-          {...register('couponCode')}
-        />
-        <FormField
-          label="Número de parcelas"
-          options={installmentsOptions}
-          error={errors.installments?.message}
-          {...register('installments')}
-        />
+        {
+          selectedOffer?.acceptsCoupon && (
+            <FormField
+              label="Cupom"
+              placeholder="Insira aqui"
+              error={errors.couponCode?.message}
+              {...register('couponCode')}
+            />
+          )
+        }
+        {
+          selectedOffer?.splittable && (
+            <FormField
+              label="Número de parcelas"
+              options={installmentsOptions}
+              error={errors.installments?.message}
+              {...register('installments')}
+            />
+          )
+        }
         <Button>Finalizar pagamento</Button>
       </Form>
     </Container>
