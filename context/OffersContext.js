@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState, useMemo } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { getOffers } from '../client'
 
 export const OffersContext = createContext()
