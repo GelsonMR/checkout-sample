@@ -1,11 +1,20 @@
-import { Header, Page, Payment } from '../components'
+import { Header, Page, Payment, Offers } from '../components'
+import { useOffers } from '../context/OffersContext'
 
 export default function Home() {
+  const { isLoading, error } = useOffers()
+
   return (
     <>
-      <Header />
+      <Header loading={isLoading} />
       <Page>
-        <Payment />
+        {error && 'Erro ao carregar planos'}
+        {!isLoading && (
+          <>
+            <Payment />
+            <Offers />
+          </>
+        )}
       </Page>
     </>
   )
