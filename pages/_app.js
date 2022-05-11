@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { OffersContextProvider } from '../context/OffersContext'
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -33,7 +34,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <OffersContextProvider>
+          <Component {...pageProps} />
+        </OffersContextProvider>
       </ThemeProvider>
     </>
   )
