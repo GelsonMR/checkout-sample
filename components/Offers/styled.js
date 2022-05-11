@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 import * as Typography from '../Typography'
 
-export const Container = styled.div`
-  width: 330px;
-`
-
 export const Heading = styled(Typography.H4)`
   margin-bottom: 8px;
   color: ${props => props.theme.colors.black};

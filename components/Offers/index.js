@@ -1,14 +1,17 @@
 import Image from 'next/image'
 import { currency } from '../../utils'
 import { useOffers } from '../../context/OffersContext'
+import { useSubscription } from '../../context/SubscriptionContext'
 import interrogationMarkCircle from '../../public/icons/interrogation-mark-circle.svg'
-import { Caption, Container, DiscountTag, Email, Heading, Icon, Info, Installments, Offer, RadioButton, Title } from './styled'
+import { Caption, DiscountTag, Email, Heading, Icon, Info, Installments, Offer, RadioButton, Title } from './styled'
+import Section from '../Section'
 
 export default function Offers() {
   const { offers, selectedOffer, setSelectedOffer } = useOffers()
+  const { isLoading } = useSubscription()
 
   return (
-    <Container>
+    <Section>
       <Heading>Confira seu plano:</Heading>
       <Email>fulano@cicrano.com.br</Email>
       {
@@ -19,7 +22,11 @@ export default function Offers() {
           const discountedPerc = offer.discountPercentage * 100
           const monthlyPriceLabel = currency.format(discountedPrice / offer.installments)
 
-          const handleOfferClick = () => setSelectedOffer(offer)
+          const handleOfferClick = () => {
+            if (!isLoading) {
+              setSelectedOffer(offer)
+            }
+          }
 
           return (
             <Offer key={offer.id} onClick={handleOfferClick}>
@@ -40,6 +47,6 @@ export default function Offers() {
           <Image src={interrogationMarkCircle} alt="Ajuda" />
         </Icon>
       </Info>
-    </Container>
+    </Section>
   )
 }
