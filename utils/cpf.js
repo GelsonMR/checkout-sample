@@ -1,4 +1,4 @@
-export default function testCPF(cpf) {
+export function test(cpf) {
   let sum
   let rest
   sum = 0
@@ -17,4 +17,8 @@ export default function testCPF(cpf) {
   if ((rest == 10) || (rest == 11)) rest = 0
   if (rest != parseInt(cpf.substring(10, 11) ) ) return false
   return true
+}
+
+export function mask(cpf) {
+  return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4')
 }

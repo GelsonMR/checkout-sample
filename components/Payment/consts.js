@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { testCPF } from '../../utils'
+import { cpf } from '../../utils'
 
 yup.setLocale({
   mixed: {
@@ -40,7 +40,7 @@ export const schema = yup.object().shape({
     .max(26),
   creditCardCPF: yup.string()
     .required()
-    .test('cpf', 'Use um CPF válido', value => testCPF(value.replace(/[\.,\-]+/g, ''))),
+    .test('cpf', 'Use um CPF válido', value => cpf.test(value.replace(/[\.,\-]+/g, ''))),
   couponCode: yup.string()
     .max(16),
   showInstallments: yup.boolean(),
