@@ -11,7 +11,7 @@ export default function Home() {
       <Header loading={offers.isLoading || subscription.isLoading} />
       <Page>
         {offers.error && 'Erro ao carregar planos'}
-        {(!offers.isLoading && !offers.error) && (
+        {offers.offers && (
           <>
             <Payment />
             <Offers />
