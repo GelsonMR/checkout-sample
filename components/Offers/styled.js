@@ -28,7 +28,7 @@ export const Email = styled(Typography.Footnote)`
   border: 1px solid ${props => props.theme.colors.gray1};
 `
 
-export const Offer = styled(Typography.Footnote).attrs({ as: 'div' })`
+export const Offer = styled(Typography.Footnote).attrs({ as: 'li' })`
   position: relative;
   display: grid;
   row-gap: 4px;
