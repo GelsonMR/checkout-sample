@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { getOffers } from '../client'
 
-export const OffersContext = createContext()
+export const OffersContext = createContext({})
 
 export function OffersContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false)

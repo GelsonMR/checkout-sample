@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useState } from 'react'
 import { subscribe } from '../client'
 
-export const SubscriptionContext = createContext()
+export const SubscriptionContext = createContext({})
 
 export function SubscriptionContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false)
