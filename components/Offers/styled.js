@@ -102,6 +102,7 @@ export const Info = styled(Typography.Footnote).attrs({ as: 'div' })`
   justify-content: center;
   color: ${props => props.theme.colors.black};
   margin-top: 30px;
+  cursor: default;
 `
 
 export const Icon = styled.div`

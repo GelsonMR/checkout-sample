@@ -43,7 +43,7 @@ export default function Offers() {
           })
         }
       </ul>
-      <Info>
+      <Info title="Não se preocupe, não é feito nenhuma cobrança, esse é um projeto de teste.">
         Sobre a cobrança
         <Icon>
           <Image src={interrogationMarkCircle} alt="Ajuda" />
