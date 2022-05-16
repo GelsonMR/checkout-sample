@@ -32,7 +32,7 @@ export default function Payment() {
     }
     const res = await subscribe(body)
     if (res.error) {
-      alert('Houve um erro ao processar sua assinatura, tente novamente.')
+      window.alert('Houve um erro ao processar sua assinatura, tente novamente.')
       return
     }
     router.push('/success')

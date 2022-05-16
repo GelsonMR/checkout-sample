@@ -1,93 +1,49 @@
 import '@testing-library/jest-dom'
 import { ThemeProvider } from 'styled-components'
-import { render, screen, fireEvent, getByText } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { OffersContext, OffersContextProvider } from '../../context/OffersContext'
+import { offers, theme } from '../../mocks'
 import Offers from './index'
+import user from '@testing-library/user-event'
 
-const mockTheme = { colors: {} }
-
-it('renders offers', () => {
-  const { container } = render(
-    <ThemeProvider theme={mockTheme}>
-      <Offers />
-    </ThemeProvider>
+it('renders offers with 2 items', async () => {
+  render(
+    <OffersContextProvider>
+      <ThemeProvider theme={theme}>
+        <Offers />
+      </ThemeProvider>
+    </OffersContextProvider>
   )
-  expect(container).toMatchSnapshot()
+
+  const container = screen.getByText(/Confira seu plano/)
+
+  expect(container).toBeInTheDocument()
 })
 
-const mockOffers =     [
-  {
-    "id":32,
-    "storeId":"anual_parcelado_iugu",
-    "title":"Premium Anual",
-    "description":"Parcelado",
-    "caption":"7 Dias Grátis",
-    "fullPrice":600,
-    "discountAmmount":60,
-    "discountPercentage":0.1,
-    "periodLabel":"mês",
-    "period":"annually",
-    "discountCouponCode":null,
-    "order":1,
-    "priority":1,
-    "gateway":"iugu",
-    "splittable":true,
-    "installments":12,
-    "acceptsCoupon":true
-  },
-  {
-    "id":33,
-    "storeId":"anual_a_vista_iugu",
-    "title":"Premium Anual",
-    "description":"À Vista",
-    "caption":"7 Dias Grátis",
-    "fullPrice":7200,
-    "discountAmmount":720,
-    "discountPercentage":0.1,
-    "periodLabel":"ano",
-    "period":"annually",
-    "discountCouponCode":null,
-    "order":2,
-    "priority":2,
-    "gateway":"iugu",
-    "splittable":false,
-    "installments":1,
-    "acceptsCoupon":true
-  }
-]
-
-it('renders home with 2 offers', async () => {
+it('renders offers with 2 items', async () => {
   render(
-    <OffersContext.Provider value={{ offers: mockOffers, selectedOffer: mockOffers[0] }}>
-      <ThemeProvider theme={mockTheme}>
+    <OffersContext.Provider value={{ offers, selectedOffer: offers[0] }}>
+      <ThemeProvider theme={theme}>
         <Offers />
       </ThemeProvider>
     </OffersContext.Provider>
   )
 
-  const container = document.querySelector('li')
+  const container = screen.getAllByText(/Premium Anual/)
 
   expect(container).toHaveLength(2)
 })
 
-it('changes selected offer', async () => {
+it('installments select hide', async () => {
   render(
-    <OffersContext.Provider value={{ offers: mockOffers, selectedOffer: mockOffers[0] }}>
-      <ThemeProvider theme={mockTheme}>
+    <OffersContext.Provider value={{ offers, selectedOffer: offers[0] }}>
+      <ThemeProvider theme={theme}>
         <Offers />
       </ThemeProvider>
-    </OffersContext.Provider>
-  )
-  
-  const container = document.querySelector('li + li')
-  
-  fireEvent(
-    container,
-    new MouseEvent('click', {
-      bubbles: true,
-      cancelable: true,
-    }),
+    </OffersContext.Provider>,
   )
 
-  expect(container).toBe(1)
+  user.click(screen.getByText(/À Vista/))
+
+  expect(screen.queryByText(/Número de parcelas/)).not.toBeInTheDocument()
 })
