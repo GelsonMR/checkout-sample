@@ -19,10 +19,6 @@ jest.mock('next/router', () => ({
 }))
 
 describe('Payment component', () => {
-  beforeEach(() => {
-    
-  })
-
   afterEach(() => {
     jest.resetAllMocks()
   })
@@ -39,6 +35,23 @@ describe('Payment component', () => {
     await user.type(input, '0000000000000000')
 
     expect(input).toHaveValue('0000 0000 0000 0000')
+  })
+
+  it('card expiration invalid date', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Payment />
+      </ThemeProvider>
+    ) 
+
+    const input = screen.getByLabelText(/Validade/)
+
+    await user.type(input, '1322')
+    await user.click(screen.getByRole('button'))
+
+    const error = await screen.findByText(/Use uma data válida/)
+
+    expect(error).toBeInTheDocument()
   })
 
   it('card expiration type', async () => {
